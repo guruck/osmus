@@ -1,4 +1,15 @@
-var io = require('socket.io').listen(5050);
+
+const httpServer = require("http").createServer();
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "*",
+    credentials: true
+  }
+});
+
+
+
+
 var gamejs = new require('../common/game.js');
 var level = new require('./level.js');
 
@@ -44,7 +55,20 @@ io.sockets.on('connection', function(socket) {
     // Broadcast that shot was fired.
     io.sockets.emit('shoot', data);
   });
-
+  // Client shoots
+  socket.on('godirection', function(data) {
+    //console.log('recv godirection', data);
+    // Check that the player is still alive
+    if (!game.blobExists(playerId)) {
+      return;
+    }
+    // Update the game game
+    game.godirection(playerId, data.direction);
+    data.playerId = playerId;
+    data.timeStamp = (new Date()).valueOf();
+    // Broadcast that shot was fired.
+    io.sockets.emit('godirection', data);
+  });
   socket.on('state', function(data) {
     socket.emit('state', {
       state: game.save()
@@ -120,3 +144,6 @@ game.on('victory', function(data) {
     game.updateEvery(Game.UPDATE_INTERVAL);
   }, Game.RESTART_DELAY);
 });
+
+
+httpServer.listen(5050);

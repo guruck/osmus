@@ -93,15 +93,19 @@ var ThreeRenderer = function(game) {
   window.addEventListener('keydown', function(evt) {
     switch(evt.keyCode) {
       case 37: // left
+        console.log('left');
         myself.camera.position.x -= cameraDelta;
         break;
       case 38: // up
+        console.log('up');
         myself.camera.position.y += cameraDelta;
         break;
       case 39: // right
+        console.log('right');
         myself.camera.position.x += cameraDelta;
         break;
       case 40: // down
+        console.log('down');
         myself.camera.position.y -= cameraDelta;
         break;
     }

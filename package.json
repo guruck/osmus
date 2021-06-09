@@ -1,0 +1,26 @@
+{
+  "name": "osmus",
+  "version": "1.0.0",
+  "description": "joguinho",
+  "main": "server/server.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node server/teste.js",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guruck/osmus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guruck/osmus/issues"
+  },
+  "homepage": "https://github.com/guruck/osmus#readme"
+}

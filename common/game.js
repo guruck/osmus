@@ -202,6 +202,29 @@ Game.prototype.shoot = function(id, direction, timeStamp) {
   }
 };
 
+/**
+ * Called when a player moving
+ * @param {object} info {id, direction, timeStamp}
+ */
+Game.prototype.godirection = function(id, direction, timeStamp) {
+  //console.log('moving from', this.state.timeStamp - timeStamp, 'ago');
+  var player = this.state.objects[id];
+  // Unit vectors.
+  var ex = Math.cos(direction);
+  var ey = Math.sin(direction);
+
+  // Affect the player's velocity, depending on angle, speed and size.
+  player.vx = ex * Game.PLAYER_SPEED_RATIO;
+  player.vy = ey * Game.PLAYER_SPEED_RATIO;
+
+  // Check if we've suicided
+  if (player.r <= 2) {
+    player.dead = true;
+    this.callback_('dead', {id: player.id, type: player.type});
+  }
+};
+
+
 Game.prototype.getPlayerCount = function() {
   var count = 0;
   var objects = this.state.objects;

@@ -68,6 +68,17 @@ socket.on('shoot', function(data) {
   game.shoot(data.playerId, data.direction, data.timeStamp);
 });
 
+// A client shoots.
+socket.on('godirection', function(data) {
+  //console.log('recv godirection', data.timeStamp, (new Date()).valueOf());
+  // Ensure that this client is alive.
+  if (!game.blobExists(data.playerId)) {
+    return;
+  }
+  // Play shoot sound effect
+  game.godirection(data.playerId, data.direction, data.timeStamp);
+});
+
 // Get a time sync from the server
 socket.on('time', function(data) {
   // Compute how much we've skewed from the server since the last tick.
